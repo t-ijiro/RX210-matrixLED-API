@@ -66,7 +66,7 @@ void main(void)
  
 	uint8_t vert_cnt = 0;
 	
-	struct Pencil pencil[NUM_PENCIL] =
+	struct Pencil pen[NUM_PENCIL] =
 	{
 		{0, 0, pixel_red,    1,  false},
 		{0, 0, pixel_green,  21, false},
@@ -133,18 +133,18 @@ void main(void)
 		{
 			for(i = 0; i < NUM_PENCIL; i++)
 			{
-				if(!pencil[i].active)
+				if(!pen[i].active)
 				{
-					pencil_boot(&pencil[i]);
+					pencil_boot(&pen[i]);
 					continue;
 				}
 
-				if(matrix_read(pencil[i].x, pencil[i].y) != pixel_off)
+				if(matrix_read(pen[i].x, pen[i].y) != pixel_off)
 				{
-					matrix_write(pencil[i].x, pencil[i].y, pencil[i].color);
+					matrix_write(pen[i].x, pen[i].y, pen[i].color);
 				}
 
-				pencil_update(&pencil[i]);
+				pencil_update(&pen[i]);
 			}
 			
 			// このプログラムは継ぎ足し描画なので
