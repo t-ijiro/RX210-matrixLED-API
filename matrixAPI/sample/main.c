@@ -73,7 +73,7 @@ void main(void)
 		{0, 0, pixel_orange, 42, false}
 	};
 	
-	uint16_t screen_buf[MATRIX_WIDTH];
+	uint16_t backup[MATRIX_WIDTH];
 	
 	init_CLK();
 	init_CMT0(1u);  // 1ms周期
@@ -147,7 +147,11 @@ void main(void)
 				pencil_update(&pencil[i]);
 			}
 			
+			// このプログラムは継ぎ足し描画なので
+			// flush前にバックアップを取っておく
+			matrix_copy(backup);
 			matrix_flush();
+			matrix_paste(backup);
 
 			timer_event_flag &= ~TASK_GRADATION;
 		}
