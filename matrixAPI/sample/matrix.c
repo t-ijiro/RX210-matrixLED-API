@@ -258,7 +258,7 @@ void matrix_paste(const uint16_t src[MATRIX_WIDTH])
     memmove(canvas, src, sizeof(buffer[0]));
 }
 
-// 描画バッファを表示バッファに反映
+// 完成した描画バッファを表示バッファと入れ替える
 void matrix_flush(void)
 {
     uint16_t *tmp = display;
