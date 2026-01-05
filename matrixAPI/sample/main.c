@@ -73,8 +73,6 @@ void main(void)
 		{0, 0, pixel_orange, 42, false}
 	};
 	
-	uint16_t backup[MATRIX_WIDTH];
-	
 	init_CLK();
 	init_CMT0(1u);  // 1ms周期
 	matrix_init();
@@ -147,7 +145,7 @@ void main(void)
 				pencil_update(&pen[i]);
 			}
 			
-			// take_over = true
+			// inherit = true
 			matrix_flush(true);
 		
 			timer_event_flag &= ~TASK_GRADATION;
@@ -172,4 +170,5 @@ void abort(void)
 
 }
 #endif
+
 
