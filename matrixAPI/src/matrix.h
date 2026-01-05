@@ -60,7 +60,7 @@ void matrix_copy(uint16_t dst[MATRIX_WIDTH]);
 // 描画バッファに外部バッファを貼り付け
 void matrix_paste(const uint16_t src[MATRIX_WIDTH]);
 
-// 描画バッファを表示バッファと入れ替える
+// 描画バッファと表示バッファを入れ替える
 void matrix_present(void);
 
 // 指定列のマトリックスLED送信用16bitデータを取得
