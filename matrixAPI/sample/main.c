@@ -146,7 +146,7 @@ void main(void)
 			}
 			
 			// inherit = true
-			matrix_flush(true);
+			matrix_present(true);
 		
 			timer_event_flag &= ~TASK_GRADATION;
 		}
