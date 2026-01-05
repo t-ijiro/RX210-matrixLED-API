@@ -150,7 +150,7 @@ void main(void)
 			// このプログラムは継ぎ足し描画なので
 			// flush前にバックアップを取っておく
 			matrix_copy(backup);
-			matrix_flush();
+			matrix_present();
 			matrix_paste(backup);
 
 			timer_event_flag &= ~TASK_GRADATION;
