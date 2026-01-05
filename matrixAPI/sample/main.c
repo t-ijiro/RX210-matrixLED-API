@@ -117,18 +117,7 @@ void main(void)
 		{
 			uint16_t vert_data;
 			
-			vert_cnt++;
-			
-			if(MATRIX_WIDTH <= vert_cnt)
-			{
-				vert_cnt = 0;
-				
-				// このプログラムは継ぎ足し描画なので
-			 // 描画バッファのバックアップを取っておく
-				matrix_copy(backup);
-				matrix_present();
-				matrix_paste(backup);
-			}
+			vert_cnt = (vert_cnt + 1) % MATRIX_WIDTH;
 
 			vert_data = matrix_get_data(vert_cnt);
 
@@ -157,6 +146,12 @@ void main(void)
 
 				pencil_update(&pen[i]);
 			}
+			
+			// このプログラムは継ぎ足し描画なので
+			// 描画バッファのバックアップを取っておく
+			matrix_copy(backup);
+			matrix_present();
+			matrix_paste(backup);
 
 			timer_event_flag &= ~TASK_GRADATION;
 		}
