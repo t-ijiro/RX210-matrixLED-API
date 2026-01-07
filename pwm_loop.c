@@ -1,6 +1,6 @@
 void loop()
 {
-    if(t == duty)
+    if(t == ton)
     {
         matrix_write(0, 0, pwm_mode ? pixel_off : c);
         matrix_flush();
@@ -8,10 +8,10 @@ void loop()
     
     if(t == CYCLE_TIME)
     {
-        t = 0;
-        duty--;
+        t = 0; 
+        ton--;
 
-        if(duty == 0)
+        if(ton == 0)
         {
             pwm_mode ^= 1;
             duty = CYCLE_TIME;
