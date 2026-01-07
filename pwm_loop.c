@@ -1,6 +1,6 @@
 void loop()
 {
-    if(t == shrehold)
+    if(t == threhold)
     {
         matrix_write(0, 0, pwm_mode ? pixel_off : c);
         matrix_flush();
@@ -9,12 +9,12 @@ void loop()
     if(t == 0)
     {
         t = T_MAX;
-        shrehold++;
+        threhold++;
 
-        if(shrehold == T_MAX)
+        if(threhold == T_MAX)
         {
             pwm_mode ^= 1;
-            shrehold = 0;
+            threhold = 0;
         }
         
         matrix_write(0, 0, pwm_mode ? c : pixel_off);
