@@ -274,7 +274,7 @@ void matrix_paste(const uint16_t src[MATRIX_WIDTH])
 
 // 描画バッファと表示バッファを入れ替える
 // inherit = true で描画バッファを継承
-void matrix_present(const bool inherit)
+void matrix_flush(const bool inherit)
 {
     uint16_t *tmp = front;
     front = back;
