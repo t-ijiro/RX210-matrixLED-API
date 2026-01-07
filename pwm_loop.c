@@ -13,11 +13,12 @@ void loop()
 
         if(shrehold == T_MAX)
         {
-            matrix_write(0, 0,pwm_mode ? c : pixel_off);
-            matrix_flush();
             pwm_mode ^= 1;
             shrehold = 0;
         }
+        
+        matrix_write(0, 0,pwm_mode ? c : pixel_off);
+        matrix_flush();
     }
 
     t--;
