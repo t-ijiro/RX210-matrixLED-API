@@ -91,163 +91,163 @@ void matrix_clear(void)
 #define SCROLL_TEXT_SIZE 32 // スクロール文字列の文字数
 #define SCROLL_BUF_SIZE (SCROLL_TEXT_SIZE * FONT_WIDTH)
 
-	// A-Zフォントデータ
-	static const uint8_t ucALPHABET[26][8]={
-		{0x00,0x00,0x1f,0x64,0x64,0x1f,0x00,0x00},
-		{0x00,0x00,0x7f,0x49,0x49,0x36,0x00,0x00},
-		{0x00,0x00,0x3e,0x41,0x41,0x22,0x00,0x00},
-		{0x00,0x00,0x7f,0x41,0x41,0x3e,0x00,0x00},
-		{0x00,0x00,0x7f,0x49,0x49,0x41,0x00,0x00},
-		{0x00,0x00,0x7f,0x48,0x48,0x40,0x00,0x00},
-		{0x00,0x00,0x3e,0x41,0x49,0x2f,0x00,0x00},
-		{0x00,0x00,0x7f,0x08,0x08,0x7f,0x00,0x00},
-		{0x00,0x00,0x00,0x41,0x7f,0x41,0x00,0x00},
-		{0x00,0x00,0x02,0x01,0x01,0x7e,0x00,0x00},
-		{0x00,0x00,0x7f,0x08,0x14,0x63,0x00,0x00},
-		{0x00,0x00,0x7f,0x01,0x01,0x01,0x00,0x00},
-		{0x00,0x7f,0x40,0x20,0x18,0x20,0x40,0x7f},
-		{0x00,0x7f,0x20,0x10,0x08,0x04,0x02,0x7f},
-		{0x00,0x00,0x3e,0x41,0x41,0x3e,0x00,0x00},
-		{0x00,0x00,0x7f,0x44,0x44,0x38,0x00,0x00},
-		{0x00,0x3e,0x45,0x45,0x43,0x3e,0x01,0x00},
-		{0x00,0x00,0x7f,0x48,0x48,0x36,0x01,0x00},
-		{0x00,0x00,0x32,0x49,0x49,0x26,0x00,0x00},
-		{0x00,0x20,0x20,0x20,0x3f,0x20,0x20,0x20},
-		{0x00,0x7e,0x01,0x01,0x01,0x01,0x7e,0x00},
-		{0x00,0x00,0x70,0x0c,0x03,0x0c,0x70,0x00},
-		{0x00,0x3e,0x01,0x06,0x18,0x06,0x01,0x3e},
-		{0x00,0x41,0x22,0x14,0x08,0x14,0x22,0x41},
-		{0x00,0x40,0x20,0x10,0x0f,0x10,0x20,0x40},
-		{0x00,0x00,0x43,0x45,0x59,0x61,0x00,0x00}
-	};
+// A-Zフォントデータ
+static const uint8_t ucALPHABET[26][8]={
+	{0x00,0x00,0x1f,0x64,0x64,0x1f,0x00,0x00},
+	{0x00,0x00,0x7f,0x49,0x49,0x36,0x00,0x00},
+	{0x00,0x00,0x3e,0x41,0x41,0x22,0x00,0x00},
+	{0x00,0x00,0x7f,0x41,0x41,0x3e,0x00,0x00},
+	{0x00,0x00,0x7f,0x49,0x49,0x41,0x00,0x00},
+	{0x00,0x00,0x7f,0x48,0x48,0x40,0x00,0x00},
+	{0x00,0x00,0x3e,0x41,0x49,0x2f,0x00,0x00},
+	{0x00,0x00,0x7f,0x08,0x08,0x7f,0x00,0x00},
+	{0x00,0x00,0x00,0x41,0x7f,0x41,0x00,0x00},
+	{0x00,0x00,0x02,0x01,0x01,0x7e,0x00,0x00},
+	{0x00,0x00,0x7f,0x08,0x14,0x63,0x00,0x00},
+	{0x00,0x00,0x7f,0x01,0x01,0x01,0x00,0x00},
+	{0x00,0x7f,0x40,0x20,0x18,0x20,0x40,0x7f},
+	{0x00,0x7f,0x20,0x10,0x08,0x04,0x02,0x7f},
+	{0x00,0x00,0x3e,0x41,0x41,0x3e,0x00,0x00},
+	{0x00,0x00,0x7f,0x44,0x44,0x38,0x00,0x00},
+	{0x00,0x3e,0x45,0x45,0x43,0x3e,0x01,0x00},
+	{0x00,0x00,0x7f,0x48,0x48,0x36,0x01,0x00},
+	{0x00,0x00,0x32,0x49,0x49,0x26,0x00,0x00},
+	{0x00,0x20,0x20,0x20,0x3f,0x20,0x20,0x20},
+	{0x00,0x7e,0x01,0x01,0x01,0x01,0x7e,0x00},
+	{0x00,0x00,0x70,0x0c,0x03,0x0c,0x70,0x00},
+	{0x00,0x3e,0x01,0x06,0x18,0x06,0x01,0x3e},
+	{0x00,0x41,0x22,0x14,0x08,0x14,0x22,0x41},
+	{0x00,0x40,0x20,0x10,0x0f,0x10,0x20,0x40},
+	{0x00,0x00,0x43,0x45,0x59,0x61,0x00,0x00}
+};
 
-	// スクロール文字列管理構造体
-	typedef struct{
-	    uint8_t text[SCROLL_BUF_SIZE];
-	    int32_t length;
-	    int32_t position;
-	    pixel_color_t fg_color;
-	    pixel_color_t bg_color;
-	}scroll_text_t;
+// スクロール文字列管理構造体
+typedef struct{
+    uint8_t text[SCROLL_BUF_SIZE];
+    int32_t length;
+    int32_t position;
+    pixel_color_t fg_color;
+    pixel_color_t bg_color;
+}scroll_text_t;
 
-	// スクロール文字列管理変数
-	static scroll_text_t scroll_text = {
-	    .text = {0x00},
-	    .length = 0,
-	    .position = 0,
-	    .fg_color = pixel_off,
-	    .bg_color = pixel_off
-	};
+// スクロール文字列管理変数
+static scroll_text_t scroll_text = {
+    .text = {0x00},
+    .length = 0,
+    .position = 0,
+    .fg_color = pixel_off,
+    .bg_color = pixel_off
+};
 
-	// １文字を描画バッファに書き込む
-	// ch: 描画する文字 (A-Zのみ対応)
-	void matrix_put_char(const char ch, const pixel_color_t fg, const pixel_color_t bg)
-	{
-	    uint8_t x, y;
+// １文字を描画バッファに書き込む
+// ch: 描画する文字 (A-Zのみ対応)
+void matrix_put_char(const char ch, const pixel_color_t fg, const pixel_color_t bg)
+{
+    uint8_t x, y;
 
-	    if(ch < 'A' || ch > 'Z')
-	    {
-	        return;
-	    }
-	    
-	    for(x = 0; x < FONT_WIDTH; x++)
-	    {
-	        for(y = 0; y < MATRIX_HEIGHT; y++)
-	        {
-	            if(ucALPHABET[ch - 'A'][x] & (1 << y))
-	            {
-	                matrix_write(x, y, fg);
-	            }
-	            else
-	            {
-	                matrix_write(x, y, bg);
-	            }
-	        }
-	    }
-	}
+    if(ch < 'A' || ch > 'Z')
+    {
+        return;
+    }
+    
+    for(x = 0; x < FONT_WIDTH; x++)
+    {
+        for(y = 0; y < MATRIX_HEIGHT; y++)
+        {
+            if(ucALPHABET[ch - 'A'][x] & (1 << y))
+            {
+                matrix_write(x, y, fg);
+            }
+            else
+            {
+                matrix_write(x, y, bg);
+            }
+        }
+    }
+}
 
-	// スクロール文字列を設定
-	// text: 表示する文字列 (A-Zのみ対応)
-	// 最大文字数はSCROLL_TEXT_SIZE文字まで
-	void matrix_set_scroll_text(const char *text)
-	{
-	    scroll_text.position = 0;
-	    scroll_text.length = 0;
+// スクロール文字列を設定
+// text: 表示する文字列 (A-Zのみ対応)
+// 最大文字数はSCROLL_TEXT_SIZE文字まで
+void matrix_set_scroll_text(const char *text)
+{
+    scroll_text.position = 0;
+    scroll_text.length = 0;
 
-	    while(*text != '\0' && scroll_text.length < SCROLL_BUF_SIZE)
-	    {
-	        char ch = *text++;
+    while(*text != '\0' && scroll_text.length < SCROLL_BUF_SIZE)
+    {
+        char ch = *text++;
 
-	        if('A' <= ch && ch <= 'Z')
-	        {
-	            memmove(&scroll_text.text[scroll_text.length], ucALPHABET[ch - 'A'], FONT_WIDTH);
-	        }
-	        else
-	        {
-	            // 未対応文字は空白扱い
-	            memset(&scroll_text.text[scroll_text.length], 0x00, FONT_WIDTH);
-	        }
+        if('A' <= ch && ch <= 'Z')
+        {
+            memmove(&scroll_text.text[scroll_text.length], ucALPHABET[ch - 'A'], FONT_WIDTH);
+        }
+        else
+        {
+            // 未対応文字は空白扱い
+            memset(&scroll_text.text[scroll_text.length], 0x00, FONT_WIDTH);
+        }
 
-	        scroll_text.length += FONT_WIDTH;
-	    }
-	}
+        scroll_text.length += FONT_WIDTH;
+    }
+}
 
-	// スクロール文字列の前景色・背景色を設定
-	void matrix_set_scroll_colors(const pixel_color_t fg, const pixel_color_t bg)
-	{
-	    scroll_text.fg_color = fg;
-	    scroll_text.bg_color = bg;
-	}
+// スクロール文字列の前景色・背景色を設定
+void matrix_set_scroll_colors(const pixel_color_t fg, const pixel_color_t bg)
+{
+    scroll_text.fg_color = fg;
+    scroll_text.bg_color = bg;
+}
 
-	// スクロール文字列を指定した方向に１つずらす
-	// 左：'l'  右：'r'
-	void matrix_scroll_text(const char dir)
-	{
-	    uint8_t x, y;
+// スクロール文字列を指定した方向に１つずらす
+// 左：'l'  右：'r'
+void matrix_scroll_text(const char dir)
+{
+    uint8_t x, y;
 
-	    for(y = 0; y < MATRIX_HEIGHT; y++)
-	    {
-	        for(x = 0; x < FONT_WIDTH; x++)
-	        {
-				uint16_t idx = (scroll_text.position + x) % scroll_text.length;
-				
-				if(scroll_text.text[idx] & (1 << y))
-	            {
-	                matrix_write(x, y, scroll_text.fg_color);
-				}
-				else
-				{
-	                matrix_write(x, y, scroll_text.bg_color);
-				}
+    for(y = 0; y < MATRIX_HEIGHT; y++)
+    {
+        for(x = 0; x < FONT_WIDTH; x++)
+        {
+			uint16_t idx = (scroll_text.position + x) % scroll_text.length;
+			
+			if(scroll_text.text[idx] & (1 << y))
+            {
+                matrix_write(x, y, scroll_text.fg_color);
+			}
+			else
+			{
+                matrix_write(x, y, scroll_text.bg_color);
 			}
 		}
-		
-	    switch(dir)
-	    {
-	        case 'l':
-	            scroll_text.position++;
-
-	            if(scroll_text.length <= scroll_text.position)
-	            {
-	                scroll_text.position = 0;
-	            }
-
-	            break;
-
-	        case 'r':
-	            scroll_text.position--;
-
-	            if(scroll_text.position < 0)
-	            {
-	                scroll_text.position = scroll_text.length - 1;
-	            }       
-
-	            break;
-
-	        default:
-	            break;
-	    }
 	}
+	
+    switch(dir)
+    {
+        case 'l':
+            scroll_text.position++;
+
+            if(scroll_text.length <= scroll_text.position)
+            {
+                scroll_text.position = 0;
+            }
+
+            break;
+
+        case 'r':
+            scroll_text.position--;
+
+            if(scroll_text.position < 0)
+            {
+                scroll_text.position = scroll_text.length - 1;
+            }       
+
+            break;
+
+        default:
+            break;
+    }
+}
 #endif /* MATRIX_USE_FONT */
 
 // 描画バッファを外部バッファにコピー
@@ -300,9 +300,9 @@ void matrix_flush(const bool inherit)
     if(inherit)
     {
 #if MATRIX_USE_IN_ISR
-    v_matrix_paste(front);
+        v_matrix_paste(front);
 #else
-    matrix_paste(front);
+        matrix_paste(front);
 #endif
     }
 }
