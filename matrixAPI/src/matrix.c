@@ -86,6 +86,7 @@ void matrix_clear(void)
 	}
 }
 
+// フォント機能使用時
 #if MATRIX_USE_FONT
 #define FONT_WIDTH 8 // アルファベット１文字分のデータ幅
 #define SCROLL_TEXT_SIZE 32 // スクロール文字列の文字数
@@ -283,7 +284,7 @@ static void v_matrix_paste(const volatile uint16_t src[MATRIX_WIDTH])
         back[i] = src[i];  
     }
 }
-#endif
+#endif /* MATRIX_USE_IN_ISR */
 
 // 描画バッファと表示バッファを入れ替える
 // inherit = true で描画バッファを継承
@@ -293,7 +294,7 @@ void matrix_flush(const bool inherit)
     volatile uint16_t *tmp = front;
 #else
     uint16_t *tmp = front;
-#endif
+#endif /* MATRIX_USE_IN_ISR */
     front = back;
     back  = tmp;
 
@@ -303,7 +304,7 @@ void matrix_flush(const bool inherit)
         v_matrix_paste(front);
 #else
         matrix_paste(front);
-#endif
+#endif /* MATRIX_USE_IN_ISR */
     }
 }
 
