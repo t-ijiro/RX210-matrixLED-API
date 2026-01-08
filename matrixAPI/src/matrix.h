@@ -14,21 +14,24 @@
 // 縦ドット数
 #define MATRIX_HEIGHT 8u
 
-// フラッシュ後も描画バッファ内容を保持する
-#define BUFF_INHERIT true
-// フラッシュ後に描画バッファ内容を破棄する
-#define BUFF_CLEAR   false
-
 // uint8_tを色を扱う時の型として定義
 typedef uint8_t pixel_color_t;
 
-// LEDの色
+// LEDの色の型
 enum {
     pixel_off,     // 0 ..消灯
     pixel_red,     // 1 ..赤
     pixel_green,   // 2 ..緑
     pixel_orange   // 3 ..橙
 };
+
+// フラッシュ時の描画バッファ処理用の型
+typedef enum {
+    // フラッシュ後も描画バッファの内容を保持する
+    BUFF_INHERIT,
+    // フラッシュ後に描画バッファの内容を破棄する
+    BUFF_CLEAR
+}handle_buff_t;
 
 #if MATRIX_USE_FONT
 // １文字を描画バッファに書き込む
@@ -67,9 +70,9 @@ void matrix_copy(uint16_t dst[MATRIX_WIDTH]);
 void matrix_paste(const uint16_t src[MATRIX_WIDTH]);
 
 // 描画バッファと表示バッファを入れ替える
-// option = true で描画バッファを引き継ぎ可能
-// option = false で描画バッファ内容を破棄
-void matrix_flush(const bool option);
+// option = BUFF_INHERIT で描画バッファ内容を保持
+// option = BUFF_CLEAR   で描画バッファ内容を破棄
+void matrix_flush(const handle_buff_t option);
 
 // 指定列のマトリックスLED送信用16bitデータを取得
 uint16_t matrix_get_data(const uint8_t x);
