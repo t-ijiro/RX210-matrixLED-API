@@ -321,11 +321,11 @@ uint16_t matrix_get_data(const uint8_t x)
 // 例 : 10101111 01011111 = 赤緑赤緑橙橙橙橙
 void matrix_out(const uint8_t x, const uint16_t data)
 {
-    uint8_t i;
+    uint8_t shift;
     
-    for(i = 0; i < 16; i++) 
+    for(shift = 0; shift < 16; shift++) 
     {
-        if(data & (1 << i)) 
+        if(data & (1 << shift)) 
         {
             SERIAL_PIN = 0;
         } 
