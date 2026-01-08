@@ -272,6 +272,7 @@ void matrix_paste(const uint16_t src[MATRIX_WIDTH])
     }
 }
 
+// ISR使用時のmatrix_flush()内部処理用
 #if MATRIX_USE_IN_ISR
 static void v_matrix_paste(const volatile uint16_t src[MATRIX_WIDTH])
 {
