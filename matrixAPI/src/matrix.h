@@ -12,7 +12,12 @@
 // 横ドット数
 #define MATRIX_WIDTH  8
 // 縦ドット数
-#define MATRIX_HEIGHT 8 
+#define MATRIX_HEIGHT 8
+
+// 描画バッファ継承定数
+#define BUFF_INHERIT true
+// 描画バッファ破棄定数
+#define BUFF_ABANDON false
 
 // uint8_tを色を扱う時の型として定義
 typedef uint8_t pixel_color_t;
@@ -72,15 +77,7 @@ uint16_t matrix_get_data(const uint8_t x);
 // data のビット配置:
 // bit[15:8] : 指定列の赤LEDの点灯パターン
 // bit[7:0]  : 指定列の緑LEDの点灯パターン
-// 例 : 10101111 01011111 = 
-//        赤
-//        緑
-//        赤
-//        緑
-//        橙
-//        橙
-//        橙
-//        橙
+// 例 : 10101111 01011111 = 赤緑赤緑橙橙橙橙
 void matrix_out(const uint8_t x, const uint16_t data);
 
 #endif /* MATRIX_H */
