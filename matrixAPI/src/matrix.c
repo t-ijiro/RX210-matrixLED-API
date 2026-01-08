@@ -133,11 +133,11 @@ typedef struct{
 
 // スクロール文字列管理変数
 static scroll_text_t scroll_text = {
-    .text = {0x00},
-    .length = 0,
-    .position = 0,
-    .fg_color = pixel_off,
-    .bg_color = pixel_off
+    {0x00},
+    0,
+    0,
+    pixel_off,
+    pixel_off
 };
 
 // １文字を描画バッファに書き込む
