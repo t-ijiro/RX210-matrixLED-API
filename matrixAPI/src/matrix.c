@@ -87,9 +87,9 @@ void matrix_clear(void)
 }
 
 #if MATRIX_USE_FONT
-	#define FONT_WIDTH 8 // アルファベット１文字分のデータ幅
-	#define SCROLL_TEXT_SIZE 32 // スクロール文字列の文字数
-	#define SCROLL_BUF_SIZE (SCROLL_TEXT_SIZE * FONT_WIDTH)
+#define FONT_WIDTH 8 // アルファベット１文字分のデータ幅
+#define SCROLL_TEXT_SIZE 32 // スクロール文字列の文字数
+#define SCROLL_BUF_SIZE (SCROLL_TEXT_SIZE * FONT_WIDTH)
 
 	// A-Zフォントデータ
 	static const uint8_t ucALPHABET[26][8]={
