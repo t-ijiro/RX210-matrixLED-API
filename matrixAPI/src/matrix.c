@@ -15,16 +15,17 @@
 #define LATCH_PIN  PORT1.PODR.BIT.B7
 
 // ダイナミック点灯制御ポート
-#define DYNAMIC_PORT PORTE.PODR.BYTE 
+#define DYNAMIC_PORT PORTE.PODR.BYTE
+
+// ダブルバッファ
+static uint16_t buffer[2][MATRIX_WIDTH] = {{0x0000}};
 
 #if MATRIX_USE_IN_ISR
 // ISR使用時
-static volatile uint16_t buffer[2][MATRIX_WIDTH] = {{0x0000}};
 static volatile uint16_t *back  = buffer[0];
 static volatile uint16_t *front = buffer[1];
 #else
 // mainのみ
-static uint16_t buffer[2][MATRIX_WIDTH] = {{0x0000}};
 static uint16_t *back  = buffer[0];
 static uint16_t *front = buffer[1];
 #endif /* MATRIX_USE_IN_ISR */
