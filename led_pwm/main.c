@@ -94,7 +94,7 @@ void main(void)
 	uint8_t x, y;
 
 	init_CLK();
-	init_CMT0(1u, 40u); // 1mm / 40 = 25us = 40kHz
+	init_CMT0(1u, 40u); // 1ms / 40 = 25us = 40kHz
 	matrix_init();
 	pwm_init();
 
