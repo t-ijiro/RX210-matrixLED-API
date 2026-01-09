@@ -20,15 +20,15 @@
 // ダブルバッファ
 static uint16_t buffer[2][MATRIX_WIDTH] = {{0x0000}};
 
-#if MATRIX_USE_IN_ISR
-// ISR使用時
+#if MATRIX_DYNAMIC_IN_ISR
+// ISRでダイナミック点灯処理を行う場合
 static volatile uint16_t *back  = buffer[0];
 static volatile uint16_t *front = buffer[1];
 #else
-// mainのみ
+// mainでダイナミック点灯処理を行う場合
 static uint16_t *back  = buffer[0];
 static uint16_t *front = buffer[1];
-#endif /* MATRIX_USE_IN_ISR */
+#endif /* MATRIX_DYNAMIC_IN_ISR */
 
 // 入出力初期化
 void matrix_init(void)
@@ -273,7 +273,7 @@ void matrix_paste(const uint16_t src[MATRIX_WIDTH])
 }
 
 // ISR使用時のmatrix_flush()内部処理用
-#if MATRIX_USE_IN_ISR
+#if MATRIX_DYNAMIC_IN_ISR
 static void v_matrix_paste(const volatile uint16_t src[MATRIX_WIDTH])
 {
     uint8_t x;
@@ -283,29 +283,29 @@ static void v_matrix_paste(const volatile uint16_t src[MATRIX_WIDTH])
         back[x] = src[x];  
     }
 }
-#endif /* MATRIX_USE_IN_ISR */
+#endif /* MATRIX_DYNAMIC_IN_ISR */
 
 // 描画バッファと表示バッファを入れ替える
 // option = HANDLE_BUFF_INHERIT で描画バッファ内容を保持
 // option = HANDLE_BUFF_CLEAR   で描画バッファ内容を破棄
 void matrix_flush(const handle_buff_t option)
 {
-#if MATRIX_USE_IN_ISR
+#if MATRIX_DYNAMIC_IN_ISR
     volatile uint16_t *tmp = front;
 #else
     uint16_t *tmp = front;
-#endif /* MATRIX_USE_IN_ISR */
+#endif /* MATRIX_DYNAMIC_IN_ISR */
     front = back;
     back  = tmp;
 
     switch(option)
     {
         case HANDLE_BUFF_INHERIT:
-#if MATRIX_USE_IN_ISR
+#if MATRIX_DYNAMIC_IN_ISR
             v_matrix_paste(front);
 #else
             matrix_paste(front);
-#endif /* MATRIX_USE_IN_ISR */
+#endif /* MATRIX_DYNAMIC_IN_ISR */
             break;
         case HANDLE_BUFF_CLEAR:
             matrix_clear();
