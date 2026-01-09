@@ -23,7 +23,7 @@
 
 typedef struct
 {
-	uint8_t ttl;
+	uint8_t count;
 	uint8_t threshold;
 	pixel_color_t color;
 	uint8_t  mode :1;
@@ -41,7 +41,7 @@ void pwm_init(void)
 		{
 			PWM_t *p = &pixel[y][x];
 
-			p->ttl = CYCLE - (y + 1) * (x + 1);
+			p->count = CYCLE - (y + 1) * (x + 1);
 			p->threshold = (y + 1) * (x + 1);
 			p->color = pixel_red;
 			p->mode = 1;
@@ -53,15 +53,15 @@ void pwm_update(uint8_t x, uint8_t y)
 {
 	PWM_t *p = &pixel[y][x];
 
-	if(p->ttl == p->threshold)
+	if(p->count == p->threshold)
 	{
 		matrix_write(x, y, !p->mode ? p->color : pixel_off);
 		matrix_flush(true);
 	}
 
-	if(p->ttl == CYCLE)
+	if(p->count == CYCLE)
 	{
-		p->ttl = 0;
+		p->count = 0;
 		p->threshold--;
 
 		if(p->threshold == 0)
@@ -79,7 +79,7 @@ void pwm_update(uint8_t x, uint8_t y)
 		matrix_flush(true);
 	}
 
-	p->ttl++;
+	p->count++;
 }
 
 void main(void);
