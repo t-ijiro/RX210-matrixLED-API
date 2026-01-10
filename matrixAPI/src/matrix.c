@@ -19,7 +19,7 @@
 static uint16_t buffer[2][MATRIX_WIDTH] = {{0x0000}};
 
 // 描画バッファへのポインタ
-static uint16_t * volatile back  = buffer[0];
+static uint16_t *back = buffer[0];
 
 // 表示バッファへのポインタ
 static uint16_t * volatile front = buffer[1];
