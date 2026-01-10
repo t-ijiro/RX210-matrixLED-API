@@ -19,10 +19,10 @@
 static uint16_t buffer[2][MATRIX_WIDTH] = {{0x0000}};
 
 // 描画バッファへのポインタ
-static volatile uint16_t *back  = buffer[0];
+static uint16_t * volatile back  = buffer[0];
 
 // 表示バッファへのポインタ
-static volatile uint16_t *front = buffer[1];
+static uint16_t * volatile front = buffer[1];
 
 // 入出力初期化
 void matrix_init(void)
@@ -88,7 +88,7 @@ void matrix_clear(void)
 #define SCROLL_BUF_SIZE (SCROLL_TEXT_SIZE * FONT_WIDTH)
 
 // A-Zフォントデータ
-static const uint8_t ucALPHABET[26][8]={
+static const uint8_t ucALPHABET[26][8] = {
 	{0x00,0x00,0x1f,0x64,0x64,0x1f,0x00,0x00},
 	{0x00,0x00,0x7f,0x49,0x49,0x36,0x00,0x00},
 	{0x00,0x00,0x3e,0x41,0x41,0x22,0x00,0x00},
@@ -266,30 +266,19 @@ void matrix_paste(const uint16_t src[MATRIX_WIDTH])
     }
 }
 
-// matrix_flush関数内部処理用
-static void v_matrix_paste(volatile const uint16_t src[MATRIX_WIDTH])
-{
-    uint8_t x;
-    
-    for(x = 0; x < MATRIX_WIDTH; x++)
-    {
-        back[x] = src[x];  
-    }
-}
-
 // 描画バッファと表示バッファを入れ替える
 // option = HANDLE_BUFF_INHERIT で描画バッファ内容を保持
 // option = HANDLE_BUFF_CLEAR   で描画バッファ内容を破棄
 void matrix_flush(handle_buff_t option)
 {
-    volatile uint16_t *tmp = front;
+    uint16_t *tmp = front;
     front = back;
     back  = tmp;
 
     switch(option)
     {
         case HANDLE_BUFF_INHERIT:
-            v_matrix_paste(front);
+            matrix_paste(front);
             break;
         case HANDLE_BUFF_CLEAR:
             matrix_clear();
