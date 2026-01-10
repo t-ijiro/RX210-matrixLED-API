@@ -18,15 +18,11 @@
 // ダブルバッファ
 static uint16_t buffer[2][MATRIX_WIDTH] = {{0x0000}};
 
-#if MATRIX_DYNAMIC_IN_ISR
-// ISRでダイナミック点灯処理を行う場合
+// 描画バッファへのポインタ
 static volatile uint16_t *back  = buffer[0];
+
+// 表示バッファへのポインタ
 static volatile uint16_t *front = buffer[1];
-#else
-// mainでダイナミック点灯処理を行う場合
-static uint16_t *back  = buffer[0];
-static uint16_t *front = buffer[1];
-#endif /* MATRIX_DYNAMIC_IN_ISR */
 
 // 入出力初期化
 void matrix_init(void)
@@ -41,7 +37,7 @@ void matrix_init(void)
 }
 
 // 描画バッファの指定座標に色を書き込む
-void matrix_write(const uint8_t x, const uint8_t y, const pixel_t c)
+void matrix_write(uint8_t x, uint8_t y, pixel_t c)
 {
     back[x] &= ~((1 << (y + 8)) | (1 << y));
 
@@ -57,7 +53,7 @@ void matrix_write(const uint8_t x, const uint8_t y, const pixel_t c)
 }
 
 // 描画バッファの指定座標の色を読み込む
-pixel_t matrix_read(const uint8_t x, const uint8_t y)
+pixel_t matrix_read(uint8_t x, uint8_t y)
 {
     pixel_t c = pixel_off;
     
@@ -85,8 +81,8 @@ void matrix_clear(void)
 	}
 }
 
-// フォント機能使用時
-#if MATRIX_USE_FONT
+// アスキー文字使用時
+#if MATRIX_USE_ ASCII
 #define FONT_WIDTH 8 // アルファベット１文字分のデータ幅
 #define SCROLL_TEXT_SIZE 32 // スクロール文字列の文字数
 #define SCROLL_BUF_SIZE (SCROLL_TEXT_SIZE * FONT_WIDTH)
@@ -141,7 +137,7 @@ static scroll_text_t scroll_text = {
 
 // １文字を描画バッファに書き込む
 // ch: 描画する文字 (A-Zのみ対応)
-void matrix_put_char(const char ch, const pixel_t fg, const pixel_t bg)
+void matrix_put_char(char ch, pixel_t fg, pixel_t bg)
 {
     uint8_t x, y;
 
@@ -193,7 +189,7 @@ void matrix_set_scroll_text(const char *text)
 }
 
 // スクロール文字列の前景色・背景色を設定
-void matrix_set_scroll_colors(const pixel_t fg, const pixel_t bg)
+void matrix_set_scroll_colors(pixel_t fg, pixel_t bg)
 {
     scroll_text.fg_color = fg;
     scroll_text.bg_color = bg;
@@ -201,7 +197,7 @@ void matrix_set_scroll_colors(const pixel_t fg, const pixel_t bg)
 
 // スクロール文字列を指定した方向に１つずらす
 // 左：'l'  右：'r'
-void matrix_scroll_text(const char dir)
+void matrix_scroll_text(char dir)
 {
     uint8_t x, y;
 	
@@ -246,7 +242,7 @@ void matrix_scroll_text(const char dir)
 		}
 	}
 }
-#endif /* MATRIX_USE_FONT */
+#endif /* MATRIX_USE_ASCII */
 
 // 描画バッファを外部バッファにコピー
 void matrix_copy(uint16_t dst[MATRIX_WIDTH])
@@ -270,9 +266,8 @@ void matrix_paste(const uint16_t src[MATRIX_WIDTH])
     }
 }
 
-// ISR使用時のmatrix_flush()内部処理用
-#if MATRIX_DYNAMIC_IN_ISR
-static void v_matrix_paste(const volatile uint16_t src[MATRIX_WIDTH])
+// flush内部処理用
+static void v_matrix_paste(volatile const uint16_t src[MATRIX_WIDTH])
 {
     uint8_t x;
     
@@ -281,29 +276,20 @@ static void v_matrix_paste(const volatile uint16_t src[MATRIX_WIDTH])
         back[x] = src[x];  
     }
 }
-#endif /* MATRIX_DYNAMIC_IN_ISR */
 
 // 描画バッファと表示バッファを入れ替える
 // option = HANDLE_BUFF_INHERIT で描画バッファ内容を保持
 // option = HANDLE_BUFF_CLEAR   で描画バッファ内容を破棄
-void matrix_flush(const handle_buff_t option)
+void matrix_flush(handle_buff_t option)
 {
-#if MATRIX_DYNAMIC_IN_ISR
     volatile uint16_t *tmp = front;
-#else
-    uint16_t *tmp = front;
-#endif /* MATRIX_DYNAMIC_IN_ISR */
     front = back;
     back  = tmp;
 
     switch(option)
     {
         case HANDLE_BUFF_INHERIT:
-#if MATRIX_DYNAMIC_IN_ISR
             v_matrix_paste(front);
-#else
-            matrix_paste(front);
-#endif /* MATRIX_DYNAMIC_IN_ISR */
             break;
         case HANDLE_BUFF_CLEAR:
             matrix_clear();
@@ -315,7 +301,7 @@ void matrix_flush(const handle_buff_t option)
 }
 
 // 指定列のマトリックスLED送信用16bitデータを取得
-uint16_t matrix_get_data(const uint8_t x)
+uint16_t matrix_get_data(uint8_t x)
 {
     return front[x];
 }
@@ -325,7 +311,7 @@ uint16_t matrix_get_data(const uint8_t x)
 // bit[15:8] : 指定列の赤LEDの点灯パターン
 // bit[7:0]  : 指定列の緑LEDの点灯パターン
 // 例 : 10101111 01011111 = 赤緑赤緑橙橙橙橙
-void matrix_out(const uint8_t x, const uint16_t data)
+void matrix_out(uint8_t x, uint16_t data)
 {
     uint8_t shift;
     
