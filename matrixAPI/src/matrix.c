@@ -266,7 +266,7 @@ void matrix_paste(const uint16_t src[MATRIX_WIDTH])
     }
 }
 
-// flush内部処理用
+// matrix_flush関数内部処理用
 static void v_matrix_paste(volatile const uint16_t src[MATRIX_WIDTH])
 {
     uint8_t x;
