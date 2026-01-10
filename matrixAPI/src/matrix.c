@@ -206,23 +206,6 @@ void matrix_set_scroll_colors(const pixel_color_t fg, const pixel_color_t bg)
 void matrix_scroll_text(const char dir)
 {
     uint8_t x, y;
-
-    for(y = 0; y < MATRIX_HEIGHT; y++)
-    {
-        for(x = 0; x < FONT_WIDTH; x++)
-        {
-			uint16_t idx = (scroll_text.position + x) % scroll_text.length;
-			
-			if(scroll_text.text[idx] & (1 << y))
-            {
-                matrix_write(x, y, scroll_text.fg_color);
-			}
-			else
-			{
-                matrix_write(x, y, scroll_text.bg_color);
-			}
-		}
-	}
 	
     switch(dir)
     {
@@ -247,6 +230,23 @@ void matrix_scroll_text(const char dir)
         default:
             break;
     }
+    
+    for(y = 0; y < MATRIX_HEIGHT; y++)
+    {
+        for(x = 0; x < FONT_WIDTH; x++)
+        {
+			uint16_t idx = (scroll_text.position + x) % scroll_text.length;
+            
+			if(scroll_text.text[idx] & (1 << y))
+            {
+                matrix_write(x, y, scroll_text.fg_color);
+			}
+			else
+			{
+                matrix_write(x, y, scroll_text.bg_color);
+			}
+		}
+	}
 }
 #endif /* MATRIX_USE_FONT */
 
