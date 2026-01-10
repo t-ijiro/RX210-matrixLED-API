@@ -14,16 +14,13 @@
 // 縦ドット数
 #define MATRIX_HEIGHT 8u
 
-// uint8_tを色を扱う時の型として定義
-typedef uint8_t pixel_color_t;
-
 // LEDの色の型
-enum {
+typedef enum {
     pixel_off,     // 0 ..消灯
     pixel_red,     // 1 ..赤
     pixel_green,   // 2 ..緑
     pixel_orange   // 3 ..橙
-};
+}pixel_color_t;
 
 // フラッシュ時の描画バッファ処理用の型
 typedef enum {
