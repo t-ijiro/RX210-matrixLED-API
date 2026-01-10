@@ -38,10 +38,11 @@ typedef enum {
     HANDLE_BUFF_CLEAR
 } handle_buff_t;
 
-#if MATRIX_USE_FONT
+// アスキー文字使用時
+#if MATRIX_USE_ASCII
 // １文字を描画バッファに書き込む
 // ch: 描画する文字 (A-Zのみ対応)
-void matrix_put_char(const char ch, const pixel_t fg, const pixel_t bg);
+void matrix_put_char(char ch, pixel_t fg, pixel_t bg);
 
 // スクロール文字列を設定
 // text: 表示する文字列 (A-Zのみ対応)
@@ -49,21 +50,21 @@ void matrix_put_char(const char ch, const pixel_t fg, const pixel_t bg);
 void matrix_set_scroll_text(const char *text);
 
 // スクロール文字列の前景色・背景色を設定
-void matrix_set_scroll_colors(const pixel_t fg, const pixel_t bg);
+void matrix_set_scroll_colors(pixel_t fg, pixel_t bg);
 
 // スクロール文字列を指定した方向に１つずらす
 // 左：'l'  右：'r'
-void matrix_scroll_text(const char dir);
+void matrix_scroll_text(char dir);
 #endif /* MATRIX_USE_FONT */
 
 // 入出力初期化
 void matrix_init(void);
 
 // 描画バッファの指定座標に色を書き込む
-void matrix_write(const uint8_t x, const uint8_t y, const pixel_t c);
+void matrix_write(uint8_t x, uint8_t y, pixel_t c);
 
 // 描画バッファの指定座標の色を読み込む
-pixel_t matrix_read(const uint8_t x, const uint8_t y);
+pixel_t matrix_read(uint8_t x, uint8_t y);
 
 // 描画バッファ全消去 
 void matrix_clear(void);
@@ -77,16 +78,16 @@ void matrix_paste(const uint16_t src[MATRIX_WIDTH]);
 // 描画バッファと表示バッファを入れ替える
 // option = HANDLE_BUFF_INHERIT で描画バッファ内容を保持
 // option = HANDLE_BUFF_CLEAR   で描画バッファ内容を破棄
-void matrix_flush(const handle_buff_t option);
+void matrix_flush(handle_buff_t option);
 
 // 指定列のマトリックスLED送信用16bitデータを取得
-uint16_t matrix_get_data(const uint8_t x);
+uint16_t matrix_get_data(uint8_t x);
 
 // 16bitデータをマトリックスLEDの指定列に出力
 // data のビット配置:
 // bit[15:8] : 指定列の赤LEDの点灯パターン
 // bit[7:0]  : 指定列の緑LEDの点灯パターン
 // 例 : 10101111 01011111 = 赤緑赤緑橙橙橙橙
-void matrix_out(const uint8_t x, const uint16_t data);
+void matrix_out(uint8_t x, uint16_t data);
 
 #endif /* MATRIX_H */
