@@ -20,7 +20,7 @@ typedef enum {
     pixel_red,     // 1 ..赤
     pixel_green,   // 2 ..緑
     pixel_orange   // 3 ..橙
-}pixel_color_t;
+}pixel_t;
 
 // フラッシュ時の描画バッファ処理用の型
 typedef enum {
@@ -33,7 +33,7 @@ typedef enum {
 #if MATRIX_USE_FONT
 // １文字を描画バッファに書き込む
 // ch: 描画する文字 (A-Zのみ対応)
-void matrix_put_char(const char ch, const pixel_color_t fg, const pixel_color_t bg);
+void matrix_put_char(const char ch, const pixel_t fg, const pixel_t bg);
 
 // スクロール文字列を設定
 // text: 表示する文字列 (A-Zのみ対応)
@@ -41,7 +41,7 @@ void matrix_put_char(const char ch, const pixel_color_t fg, const pixel_color_t 
 void matrix_set_scroll_text(const char *text);
 
 // スクロール文字列の前景色・背景色を設定
-void matrix_set_scroll_colors(const pixel_color_t fg, const pixel_color_t bg);
+void matrix_set_scroll_colors(const pixel_t fg, const pixel_t bg);
 
 // スクロール文字列を指定した方向に１つずらす
 // 左：'l'  右：'r'
@@ -52,10 +52,10 @@ void matrix_scroll_text(const char dir);
 void matrix_init(void);
 
 // 描画バッファの指定座標に色を書き込む
-void matrix_write(const uint8_t x, const uint8_t y, const pixel_color_t c);
+void matrix_write(const uint8_t x, const uint8_t y, const pixel_t c);
 
 // 描画バッファの指定座標の色を読み込む
-pixel_color_t matrix_read(const uint8_t x, const uint8_t y);
+pixel_t matrix_read(const uint8_t x, const uint8_t y);
 
 // 描画バッファ全消去 
 void matrix_clear(void);
