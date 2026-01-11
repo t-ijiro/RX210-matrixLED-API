@@ -15,6 +15,12 @@
 // ダイナミック点灯制御ポート
 #define DYNAMIC_PORT PORTE.PODR.BYTE
 
+// マトリックスLEDの横幅
+#define MATRIX_WIDTH  8
+
+// マトリックスLEDの縦幅
+#define MATRIX_HEIGHT 8
+
 // ダブルバッファ
 static uint16_t buffer[2][MATRIX_WIDTH] = {{0x0000}};
 
@@ -240,13 +246,13 @@ void matrix_scroll_text(char dir)
 #endif /* MATRIX_USE_FONT */
 
 // 描画バッファを外部バッファにコピー
-void matrix_copy(uint16_t dst[MATRIX_WIDTH])
+void matrix_copy(uint16_t *dst)
 {
     memmove(dst, back, MATRIX_WIDTH);
 }
 
 // 外部バッファを描画バッファにコピー
-void matrix_paste(const uint16_t src[MATRIX_WIDTH])
+void matrix_paste(const uint16_t *src)
 {
     memmove(back, src, MATRIX_WIDTH);
 }
