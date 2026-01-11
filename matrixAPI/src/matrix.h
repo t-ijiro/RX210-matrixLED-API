@@ -18,7 +18,7 @@
 // 列データの作成方法
 // *******************************************************
 //
-// 列データのbit配置:
+// データのbit配置:
 // bit[15:8] : 指定列の赤LEDの点灯パターン
 // bit[7:0]  : 指定列の緑LEDの点灯パターン
 // 例 : 0xAF5F = 0b1010111101011111
@@ -90,10 +90,10 @@ pixel_t matrix_read(uint8_t x, uint8_t y);
 void matrix_clear(void);
 
 // 描画バッファを外部バッファにコピー
-void matrix_copy(uint16_t *dst[8]);
+void matrix_copy(uint16_t *dst);
 
 // 描画バッファに外部バッファを貼り付け
-void matrix_paste(const uint16_t *src[8]);
+void matrix_paste(const uint16_t *src);
 
 // 描画バッファと表示バッファを入れ替える
 // option = HANDLE_BUFF_KEEP  で描画バッファ内容を保持
