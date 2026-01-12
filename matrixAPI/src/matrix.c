@@ -245,18 +245,6 @@ void matrix_scroll_text(char dir)
 }
 #endif /* MATRIX_USE_FONT */
 
-// 描画バッファを外部バッファにコピー
-void matrix_copy(uint16_t *dst)
-{
-    memmove(dst, back, MATRIX_WIDTH);
-}
-
-// 外部バッファを描画バッファにコピー
-void matrix_paste(const uint16_t *src)
-{
-    memmove(back, src, MATRIX_WIDTH);
-}
-
 // 描画バッファと表示バッファを入れ替える
 // option = HANDLE_BUFF_KEEP  で描画バッファ内容を保持
 // option = HANDLE_BUFF_CLEAR で描画バッファ内容を破棄
@@ -269,10 +257,10 @@ void matrix_flush(handle_buff_t option)
     switch(option)
     {
         case HANDLE_BUFF_KEEP:
-            matrix_paste(front);
+            memmove(back, front, MATRIX_WIDTH);
             break;
         case HANDLE_BUFF_CLEAR:
-            matrix_clear();
+            memset(back, 0x0000, MATRIX_WIDTH);
             break;
         default :
             // 描画バッファの状態は不定
