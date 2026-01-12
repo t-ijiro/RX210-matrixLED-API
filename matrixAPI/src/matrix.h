@@ -94,7 +94,7 @@ void matrix_clear(void);
 // option = HANDLE_BUFF_CLEAR で描画バッファ内容を破棄
 void matrix_flush(handle_buff_t option);
 
-// 指定列のマトリックスLED送信用16bitデータを取得
+// 指定列の表示バッファからマトリックスLED送信用16bitデータを取得
 uint16_t matrix_get_data(uint8_t x);
 
 // 16bitデータをマトリックスLEDの指定列に出力
