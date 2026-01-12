@@ -53,10 +53,10 @@ typedef enum {
 // フラッシュ時の描画バッファ処理用の型
 typedef enum {
     // フラッシュ後も描画バッファの内容を保持する
-    HANDLE_BUFF_KEEP,
+    BUFF_KEEP,
     // フラッシュ後に描画バッファの内容を破棄する
-    HANDLE_BUFF_CLEAR
-} handle_buff_t;
+    BUFF_CLEAR
+} buff_t;
 
 // フォント機能有効時
 #ifdef MATRIX_USE_FONT
@@ -90,9 +90,9 @@ pixel_t matrix_read(uint8_t x, uint8_t y);
 void matrix_clear(void);
 
 // 描画バッファと表示バッファを入れ替える
-// option = HANDLE_BUFF_KEEP  で描画バッファ内容を保持
-// option = HANDLE_BUFF_CLEAR で描画バッファ内容を破棄
-void matrix_flush(handle_buff_t option);
+// option = BUFF_KEEP  で描画バッファ内容を保持
+// option = BUFF_CLEAR で描画バッファ内容を破棄
+void matrix_flush(buff_t option);
 
 // 指定列の表示バッファからマトリックスLED送信用16bitデータを取得
 uint16_t matrix_get_data(uint8_t x);
